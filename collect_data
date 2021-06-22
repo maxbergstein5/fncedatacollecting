@@ -3,7 +3,7 @@ import pandas as pd
 
 tickers = ["AI","PLTR", "AMZN", "GOOGL", "MSFT", "FB", "AAPL", "INTC","ZM", "CRM", "ADBE", "TSM", "TCEHY", "BABA", "JD", "ORCL", "NVDA", "SAP", "WDAY"]
 
-indexes = ["Net Income", "Gross Profit","Operating Income", "Total Revenue"]
+indices = ["Net Income", "Gross Profit","Operating Income", "Total Revenue"]
 
 #filename="/Users/maxbergstein/Desktop/Vian.ai/autoData2.xlsx"
 
@@ -12,13 +12,13 @@ def collect_data(tickers, filename="/Users/maxbergstein/Desktop/Vian.ai/autoData
     for ticker in tickers:
         company = yf.Ticker(ticker)
         df = pd.DataFrame(company.quarterly_financials)
-        important = df.loc[indexes, :]
+        important = df.loc[indices, :]
         important.columns = ["-1Qs", "-2Qs", "-3Qs", "-4Qs"]
         l.append(important)
 
-    final = pd.concat(l, keys = tickers)
+final = pd.concat(l, keys = tickers)
 
-    with pd.ExcelWriter(filename) as writer:
-        final.to_excel(writer)
+#with pd.ExcelWriter(filename) as writer:
+    #final.to_excel(writer)
 
 collect_data(tickers)
